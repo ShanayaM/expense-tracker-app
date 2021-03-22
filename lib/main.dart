@@ -1,20 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:yeet/yeet.dart';
 import 'authentication_repository.dart';
+// import 'fl_charts_tutorial.dart';
+import 'invoice_operations.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+final yeetProvider = Provider<Yeet>((ref) {
+  ref.watch(authRepositoryProvider);
+  return Yeet(
+    children: [
+      Yeet(
+        path: '/',
+        builder: (_, __) => LoginPage(
+          title: 'Expense Tracker',
+        ),
+        children: [
+          //   Yeet(
+          //     path: '/view_chart',
+          //     builder: (_, __) => MyChart(),
+          //   ),
+          Yeet(
+            path: '/invoices',
+            builder: (_, __) => MyInvoices(),
+          ),
+        ],
+      ),
+    ],
+  );
+});
+
+class MyApp extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final yeet = useProvider(yeetProvider);
+    return MaterialApp.router(
       title: 'Expense Tracker',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(title: 'Expense Tracker - Login'),
+      routeInformationParser: YeetInformationParser(),
+      routerDelegate: YeeterDelegate(yeet: yeet),
     );
   }
 }
@@ -98,6 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                                   backgroundColor: Colors.grey,
                                   textColor: Colors.white,
                                   fontSize: 16.0);
+                              context.yeet('/invoices');
                             } else {
                               Fluttertoast.showToast(
                                   msg: "Please try again...",

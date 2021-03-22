@@ -3,9 +3,10 @@
 Keep track of your expenses by logging them in the app using your phone's camera.
 
 The idea is to:
-- Scan an invoice and get basic details from the invoice such as the name of the vendor, the date and the total amount spent.
-- Store the details from the invoice.
+- Enter a new expense.
 - View past expenses.
 - Create and export charts.
-- Edit details extracted from the invoice.
-- Create an account/login.
+- Edit an existing invoice.
+- Create an account/login using a database.
+
+...

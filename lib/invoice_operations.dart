@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import 'invoice.dart';
 import 'invoice_input.dart';
 import 'chart.dart';
-import 'transaction_list.dart';
+import 'invoice_list.dart';
 
 class MyInvoices extends StatefulWidget {
   @override

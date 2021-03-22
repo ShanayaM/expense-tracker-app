@@ -25,10 +25,7 @@ class Chart extends HookWidget {
         }
       }
 
-      return {
-        'day': DateFormat.E().format(weekDay).substring(0, 1),
-        'amount': totalSum
-      };
+      return {'day': DateFormat.E().format(weekDay), 'amount': totalSum};
     }).reversed.toList();
   }
 
@@ -47,20 +44,20 @@ class Chart extends HookWidget {
     }
 
     List<Color> colorList = [
-      Colors.red,
-      Colors.green,
-      Colors.blue,
-      Colors.yellow,
-      Colors.grey,
-      Colors.teal,
-      Colors.cyan,
+      Color(0xFF58508D),
+      Color(0xff003F5C),
+      Color(0xffBC5090),
+      Color(0xFFEC6B56),
+      Color(0xFFFFC154),
+      Color(0xffE6F69D),
+      Color(0xffAADEA7)
     ];
 
     print(groupedTransactionValues);
 
     return Card(
       elevation: 5,
-      margin: EdgeInsets.all(20),
+      margin: EdgeInsets.all(5),
       child: Padding(
         padding: EdgeInsets.all(10),
         child: Row(
@@ -71,10 +68,11 @@ class Chart extends HookWidget {
               child: PieChart(
                 dataMap: dataMap,
                 chartLegendSpacing: 30,
-                chartRadius: MediaQuery.of(context).size.width / 3.2,
+                chartRadius: MediaQuery.of(context).size.width / 3.5,
                 colorList: colorList,
                 initialAngleInDegree: 0,
-                chartType: ChartType.disc,
+                chartType: ChartType.ring,
+                centerText: maxSpending.toString(),
                 ringStrokeWidth: 32,
                 legendOptions: LegendOptions(
                   showLegendsInRow: false,
@@ -86,11 +84,17 @@ class Chart extends HookWidget {
                   ),
                 ),
                 chartValuesOptions: ChartValuesOptions(
-                  showChartValueBackground: true,
+                  showChartValueBackground: false,
                   showChartValues: true,
                   showChartValuesInPercentage: false,
-                  showChartValuesOutside: false,
+                  showChartValuesOutside: true,
                   decimalPlaces: 1,
+                  chartValueStyle: TextStyle(
+                    fontSize: 15,
+                    color: Colors.black,
+                    backgroundColor: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             )

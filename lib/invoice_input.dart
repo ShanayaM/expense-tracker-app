@@ -14,12 +14,21 @@ class InvoiceInputState extends State<InvoiceInput> {
   String? titleInput;
   String? amountInput;
 
-  final titleController = TextEditingController();
+  final textController = TextEditingController();
   final amountController = TextEditingController();
   DateTime? dateSelector;
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   textController.addListener(() {
+
+  //   });
+  //   amountController.addListener(() {});
+  // }
+
   void submitData() {
-    final titleText = titleController.text;
+    final titleText = textController.text;
     final amountText = double.parse(amountController.text);
 
     if (titleText.isEmpty || amountText <= 0) {
@@ -50,14 +59,15 @@ class InvoiceInputState extends State<InvoiceInput> {
   Widget build(BuildContext context) {
     return Card(
         elevation: 5,
-        child: Container(
+        child: SingleChildScrollView(
+            child: Container(
           padding: EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               TextField(
                 decoration: InputDecoration(labelText: 'Vendor'),
-                controller: titleController,
+                controller: textController,
                 onChanged: (value) {
                   titleInput = value;
                 },
@@ -77,7 +87,7 @@ class InvoiceInputState extends State<InvoiceInput> {
                         Expanded(
                             child: Text(dateSelector == null
                                 ? "No Date Chosen"
-                                : "Date selected:${DateFormat.yMMMd().format(dateSelector!)}")),
+                                : "Date selected: ${DateFormat.yMMMd().format(dateSelector!)}")),
                         new Builder(
                             builder: (context) => new MaterialButton(
                                 onPressed: _presentDatePicker,
@@ -89,14 +99,12 @@ class InvoiceInputState extends State<InvoiceInput> {
                                       fontWeight: FontWeight.bold),
                                 )))
                       ])),
-              MaterialButton(
-                  elevation: 5,
-                  child: Text('Add Invoice'),
-                  color: Theme.of(context).primaryColor,
-                  textColor: Theme.of(context).textTheme.button!.color,
-                  onPressed: submitData),
+              ElevatedButton(
+                child: Text('Add Invoice'),
+                onPressed: submitData,
+              ),
             ],
           ),
-        ));
+        )));
   }
 }

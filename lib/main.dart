@@ -4,7 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:yeet/yeet.dart';
 import 'authentication_repository.dart';
-// import 'fl_charts_tutorial.dart';
 import 'invoice_operations.dart';
 
 void main() {
@@ -21,10 +20,6 @@ final yeetProvider = Provider<Yeet>((ref) {
           title: 'Expense Tracker',
         ),
         children: [
-          //   Yeet(
-          //     path: '/view_chart',
-          //     builder: (_, __) => MyChart(),
-          //   ),
           Yeet(
             path: '/invoices',
             builder: (_, __) => MyInvoices(),

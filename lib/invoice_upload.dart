@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
           //     textColor: Colors.white,
           //     fontSize: 16.0);
         },
-        tooltip: 'Upload an invoice',
+        tooltip: 'Upload an expense',
         child: Icon(Icons.add),
       ),
     );

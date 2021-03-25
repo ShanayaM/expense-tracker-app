@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'invoice.dart';
+import 'expense.dart';
 import 'package:pie_chart/pie_chart.dart';
 import "package:intl/intl.dart";
 
 class Chart extends HookWidget {
-  final List<Invoice> recentTransactions;
+  final List<Expense> recentTransactions;
 
   Chart(this.recentTransactions);
 

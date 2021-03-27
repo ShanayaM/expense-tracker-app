@@ -2,11 +2,11 @@
 
 Keep track of your expenses by logging them in the app.
 
-The idea is to:
+Through this app, you can:
 - Enter a new expense.
 - View past expenses.
-- Create and export charts.
+- Create and view charts.
 - Edit or delete an existing expense.
-- Create an account/login using SQFlite database.
+- Create an account/login.
 
 ...

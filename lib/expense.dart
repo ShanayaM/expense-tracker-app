@@ -1,18 +1,15 @@
-import "package:flutter/foundation.dart";
-
 class Expense {
-  @required
   String id;
-  @required
-  String vendor;
-  @required
+
+  String expenseName;
+
   double amount;
-  @required
+
   DateTime date;
 
   Expense(
       {required this.id,
-      required this.vendor,
+      required this.expenseName,
       required this.amount,
       required this.date});
 }

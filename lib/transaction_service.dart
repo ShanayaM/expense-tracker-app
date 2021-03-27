@@ -25,6 +25,10 @@ class _MyExpensesState extends State<MyExpenses> {
     }).toList();
   }
 
+  List<Expense>? getAllExpenses() {
+    return Hive.box('expenses').get('expenses') as List<Expense>;
+  }
+
   void _addNewExpense(
       String expenseName, double amount, DateTime dateSelector) {
     final newExpense = Expense(
@@ -94,7 +98,7 @@ class _MyExpensesState extends State<MyExpenses> {
                       break;
                     case 'View Chart':
                       Chart(_recentExpenses);
-                      // context.yeet('/chart');
+                      context.yeet();
                       break;
                   }
                 },

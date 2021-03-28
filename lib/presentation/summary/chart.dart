@@ -1,10 +1,9 @@
 import "package:flutter/material.dart";
-import 'package:flutter_hooks/flutter_hooks.dart';
 import '../../expense.dart';
 import 'package:pie_chart/pie_chart.dart';
 import "package:intl/intl.dart";
 
-class Chart extends HookWidget {
+class Chart extends StatelessWidget {
   final List<Expense> recentTransactions;
 
   Chart(this.recentTransactions);
@@ -50,54 +49,61 @@ class Chart extends HookWidget {
       Color(0xFFEC6B56),
       Color(0xFFFFC154),
       Color(0xffE6F69D),
-      Color(0xffAADEA7)
+      Color(0xffAADEA7),
     ];
 
     print(groupedTransactionValues);
 
-    return Card(
-      elevation: 5,
-      margin: EdgeInsets.all(5),
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Flexible(
-              fit: FlexFit.tight,
-              child: PieChart(
-                dataMap: dataMap,
-                chartLegendSpacing: 30,
-                chartRadius: MediaQuery.of(context).size.width / 3.5,
-                colorList: colorList,
-                initialAngleInDegree: 0,
-                chartType: ChartType.disc,
-                ringStrokeWidth: 32,
-                legendOptions: LegendOptions(
-                  showLegendsInRow: false,
-                  legendPosition: LegendPosition.right,
-                  showLegends: true,
-                  legendShape: BoxShape.circle,
-                  legendTextStyle: TextStyle(
-                    fontWeight: FontWeight.bold,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('This week\'s overview'),
+      ),
+      body: Container(
+        height: 500,
+        alignment: Alignment.center,
+        child: Card(
+          elevation: 5,
+          // margin: EdgeInsets.all(5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Flexible(
+                fit: FlexFit.tight,
+                child: PieChart(
+                  animationDuration: Duration(milliseconds: 2000),
+                  dataMap: dataMap,
+                  chartLegendSpacing: 40,
+                  chartRadius: MediaQuery.of(context).size.width / 2.0,
+                  // colorList: colorList,
+                  initialAngleInDegree: 0,
+                  chartType: ChartType.disc,
+                  ringStrokeWidth: 32,
+                  legendOptions: LegendOptions(
+                    showLegendsInRow: false,
+                    legendPosition: LegendPosition.right,
+                    showLegends: true,
+                    legendShape: BoxShape.circle,
+                    legendTextStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  chartValuesOptions: ChartValuesOptions(
+                    showChartValueBackground: false,
+                    showChartValues: true,
+                    showChartValuesInPercentage: false,
+                    showChartValuesOutside: true,
+                    decimalPlaces: 1,
+                    chartValueStyle: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                      backgroundColor: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-                chartValuesOptions: ChartValuesOptions(
-                  showChartValueBackground: false,
-                  showChartValues: true,
-                  showChartValuesInPercentage: false,
-                  showChartValuesOutside: true,
-                  decimalPlaces: 1,
-                  chartValueStyle: TextStyle(
-                    fontSize: 15,
-                    color: Colors.black,
-                    backgroundColor: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

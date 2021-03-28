@@ -5,9 +5,9 @@ import "package:intl/intl.dart";
 class ExpenseList extends StatelessWidget {
   final List<Expense> expenses;
   final Function deleteExpense;
-  final Function editExpense;
+  // final Function editExpense;
 
-  ExpenseList(this.expenses, this.deleteExpense, this.editExpense);
+  ExpenseList(this.expenses, this.deleteExpense);
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +45,13 @@ class ExpenseList extends StatelessWidget {
                           Flexible(
                             fit: FlexFit.tight,
                             child: IconButton(
-                                color: Colors.black,
-                                icon: new Icon(
-                                  Icons.edit,
-                                ),
-                                onPressed: () =>
-                                    editExpense(expenses[index].id)),
+                              color: Colors.black,
+                              icon: new Icon(
+                                Icons.edit,
+                              ),
+                              onPressed:
+                                  () {}, //=> editExpense(expenses[index].id),
+                            ),
                           ),
                           Flexible(
                             fit: FlexFit.tight,

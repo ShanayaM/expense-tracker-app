@@ -3,7 +3,6 @@ import 'package:expense_tracker_app/presentation/summary/expenses_view.dart';
 import "package:flutter/material.dart";
 import 'expense.dart';
 import 'presentation/expense/expense_input.dart';
-import 'package:yeet/yeet.dart';
 import 'expense_list.dart';
 import 'package:hive/hive.dart';
 
@@ -19,15 +18,14 @@ class _MyExpensesState extends State<MyExpenses> {
   TextEditingController textController = TextEditingController();
 
   List<Expense> get _recentExpenses {
-    Hive.box('expenses').get('expenses') as List<Expense>;
     return expense.where((expense) {
       return expense.date.isAfter(DateTime.now().subtract(Duration(days: 30)));
     }).toList();
   }
 
-  List<Expense>? getAllExpenses() {
-    return Hive.box('expenses').get('expenses') as List<Expense>;
-  }
+  // List<Expense> get getAllExpenses() {
+
+  // }
 
   void _addNewExpense(
       String expenseName, double amount, DateTime dateSelector) {
@@ -39,30 +37,14 @@ class _MyExpensesState extends State<MyExpenses> {
 
     setState(() {
       expense.add(newExpense);
-      final expenses = getAllExpenses();
-      Hive.box('expenses').put('expenses', [newExpense, ...expenses!]);
+      // final expenses = getAllExpenses();
+      // Hive.box('expenses').put('expenses', [newExpense, ...expenses!]);
     });
   }
 
   void _deleteExpense(String id) {
     setState(() {
       expense.removeWhere((element) => element.id == id);
-    });
-  }
-
-  void _editExpense(String id) {
-    setState(() {
-      var ex = expense.singleWhere((element) => element.id == id);
-      print(ex);
-      final newExpense = Expense(
-        id: id,
-        expenseName: ex.expenseName,
-        amount: ex.amount,
-        date: ex.date,
-      );
-
-      expense.removeWhere((element) => element.id == id);
-      expense.add(newExpense);
     });
   }
 
@@ -97,8 +79,13 @@ class _MyExpensesState extends State<MyExpenses> {
                     case 'Logout':
                       break;
                     case 'View Chart':
-                      Chart(_recentExpenses);
-                      context.yeet();
+                      // Used Navigator instead of Yeet
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Chart(_recentExpenses),
+                        ),
+                      );
                       break;
                   }
                 },
@@ -115,9 +102,30 @@ class _MyExpensesState extends State<MyExpenses> {
           ),
           body: CustomScrollView(
             slivers: [
-              SliverToBoxAdapter(
-                child: Container(
-                  child: Chart(_recentExpenses),
+              // SliverToBoxAdapter(
+              //   child: Container(
+              //     child: Chart(_recentExpenses),
+              //   ),
+              // ),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    return Container(
+                      padding: EdgeInsets.all(10.0),
+                      height: 100,
+                      child: Center(
+                        child: Text(
+                          'Overview',
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 50,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  childCount: 1,
                 ),
               ),
               SliverToBoxAdapter(
@@ -131,24 +139,13 @@ class _MyExpensesState extends State<MyExpenses> {
                   (context, index) {
                     return Container(
                       height: 300,
-                      child: ExpenseList(expense, _deleteExpense, _editExpense),
+                      child: ExpenseList(expense, _deleteExpense),
                     );
                   },
                 ),
               )
             ],
           ),
-          // body: SingleChildScrollView(
-          //   child: Column(
-          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //     crossAxisAlignment: CrossAxisAlignment.stretch,
-          //     children: <Widget>[
-          //       Chart(_recentExpenses),
-          //       View(_recentExpenses),
-          //       ExpenseList(expense, _deleteExpense, _editExpense),
-          //     ],
-          //   ),
-          // ),
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
           floatingActionButton: Builder(
             builder: (context) => FloatingActionButton(
@@ -157,7 +154,7 @@ class _MyExpensesState extends State<MyExpenses> {
                 showModalBottomSheet<void>(
                   context: context,
                   builder: (context) {
-                    return ExpenseInput(_addNewExpense, _editExpense);
+                    return ExpenseInput(_addNewExpense, _deleteExpense);
                   },
                 );
               },

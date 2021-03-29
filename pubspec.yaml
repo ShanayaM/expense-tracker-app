@@ -13,9 +13,10 @@ dependencies:
     sdk: flutter
 
   fluttertoast: ^8.0.1-nullsafety.0
-  cupertino_icons: ^1.0.2
-  path: ^1.8.0-nulllsafety.3
-  path_provider: ^2.0.1
+  firebase_core: ^1.0.2
+  firebase_auth: ^1.0.1
+  cloud_firestore: ^1.0.2
+  email_validator: ^2.0.1
   intl: ^0.17.0
   flutter_hooks: ^0.16.0
   hooks_riverpod: ^0.13.1

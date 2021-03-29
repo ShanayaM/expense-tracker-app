@@ -42,15 +42,15 @@ class Chart extends StatelessWidget {
       dataMap[map['day'].toString()] = map['amount'] as double;
     }
 
-    List<Color> colorList = [
-      Color(0xFF58508D),
-      Color(0xff003F5C),
-      Color(0xffBC5090),
-      Color(0xFFEC6B56),
-      Color(0xFFFFC154),
-      Color(0xffE6F69D),
-      Color(0xffAADEA7),
-    ];
+    // List<Color> colorList = [
+    //   Color(0xFF58508D),
+    //   Color(0xff003F5C),
+    //   Color(0xffBC5090),
+    //   Color(0xFFEC6B56),
+    //   Color(0xFFFFC154),
+    //   Color(0xffE6F69D),
+    //   Color(0xffAADEA7),
+    // ];
 
     print(groupedTransactionValues);
 

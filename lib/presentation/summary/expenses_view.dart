@@ -64,8 +64,6 @@ class View extends HookWidget {
                 children: [
                   Wrap(
                     spacing: 100,
-                    // crossAxisAlignment: WrapCrossAlignment.center,
-                    // alignment: WrapAlignment.center,
                     children: [
                       Column(
                         children: [

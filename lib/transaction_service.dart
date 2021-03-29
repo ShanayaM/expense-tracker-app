@@ -1,4 +1,4 @@
-import 'package:expense_tracker_app/presentation/summary/chart.dart';
+import 'package:expense_tracker_app/presentation/summary/chart_view.dart';
 import 'package:expense_tracker_app/presentation/summary/expenses_view.dart';
 import "package:flutter/material.dart";
 import 'expense.dart';

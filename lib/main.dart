@@ -4,15 +4,14 @@ import 'package:expense_tracker_app/transaction_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-// import 'package:hive/hive.dart';
+import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:yeet/yeet.dart';
 
 // TODO: Implement hive support
 
 void main() async {
-  // Hive.init('/hive');
-  // Hive.box('expenses').clear();
+  Hive.init('/hive');
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(ProviderScope(child: MyApp()));
@@ -20,7 +19,7 @@ void main() async {
 
 final yeetProvider = Provider<Yeet>((ref) {
   final authState = ref.watch(authBlocProvider.state);
-  var x = authState.maybeWhen(
+  return authState.maybeWhen(
     authenticated: (user) => Yeet(
       children: [
         Yeet(
@@ -35,14 +34,9 @@ final yeetProvider = Provider<Yeet>((ref) {
           path: '/',
           builder: (_, __) => AuthView(),
         ),
-        Yeet(
-          path: '/expenses',
-          builder: (_, __) => MyExpenses(),
-        ),
       ],
     ),
   );
-  return x;
 });
 
 class MyApp extends HookWidget {
@@ -53,10 +47,9 @@ class MyApp extends HookWidget {
     return MaterialApp.router(
       title: 'Expense Tracker',
       theme: ThemeData.light(),
+      debugShowCheckedModeBanner: false,
       routeInformationParser: YeetInformationParser(),
-      routerDelegate: YeeterDelegate(
-        yeet: yeet,
-      ),
+      routerDelegate: YeeterDelegate(yeet: yeet),
     );
   }
 }

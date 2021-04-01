@@ -1,7 +1,8 @@
+import 'package:expense_tracker_app/application/expense/expense.dart';
 import 'package:expense_tracker_app/presentation/summary/chart_view.dart';
 import 'package:expense_tracker_app/presentation/summary/expenses_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
-import 'expense.dart';
 import 'presentation/expense/expense_input.dart';
 import 'expense_list.dart';
 import 'package:hive/hive.dart';
@@ -14,6 +15,12 @@ class MyExpenses extends StatefulWidget {
 class _MyExpensesState extends State<MyExpenses> {
   final List<Expense> expense = [];
   String? selectedKey;
+
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+  _signOut() async {
+    await _firebaseAuth.signOut();
+  }
 
   TextEditingController textController = TextEditingController();
 
@@ -50,7 +57,7 @@ class _MyExpensesState extends State<MyExpenses> {
 
   @override
   Widget build(BuildContext context) {
-    Hive.openBox('expenses');
+    // Hive.openBox('expenses');
 
     return MaterialApp(
       theme: ThemeData(
@@ -77,9 +84,9 @@ class _MyExpensesState extends State<MyExpenses> {
                 onSelected: (value) {
                   switch (value) {
                     case 'Logout':
+                      _signOut();
                       break;
                     case 'View Chart':
-                      // Used Navigator instead of Yeet
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -102,11 +109,6 @@ class _MyExpensesState extends State<MyExpenses> {
           ),
           body: CustomScrollView(
             slivers: [
-              // SliverToBoxAdapter(
-              //   child: Container(
-              //     child: Chart(_recentExpenses),
-              //   ),
-              // ),
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
